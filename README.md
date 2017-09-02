@@ -5,6 +5,7 @@ A windows program notifies if user is not taking a break for 45 minutes.
 **Building**
 
 Open the TakeBreak.sln from Visual Studio 2013 and build.
+Prebuilt binary is added to binaries folder.
 
 **Running**
 
