@@ -24,8 +24,8 @@ LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 
 const int Minutes = 60 * 1000;
 const int Seconds = 1000;
-const int NotifyTime = 2 * Minutes;
-const int FollowUpTime = 1 * Minutes;
+const int NotifyTime = 45 * Minutes;
+const int FollowUpTime = 5 * Minutes;
 const int MeasuredTime = 25 * Seconds;
 
 DWORD WINAPI TrackWork(LPVOID lpParam){
