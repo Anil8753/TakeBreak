@@ -31,6 +31,7 @@ const int MeasuredTime = 25 * Seconds;
 DWORD WINAPI TrackWork(LPVOID lpParam){
 	int totalTime = NotifyTime;
 	int counter = 0;
+	int extendedCounter = 0;
 	for (;;){
 		if (WaitForSingleObject(hEvent, MeasuredTime) != WAIT_TIMEOUT) {
 			break;
@@ -41,15 +42,16 @@ DWORD WINAPI TrackWork(LPVOID lpParam){
 		GetLastInputInfo(&lii);
 		if ((GetTickCount() - lii.dwTime) < MeasuredTime){
 			counter += MeasuredTime;
-		}
-		else{
+			extendedCounter += MeasuredTime;
+		}else{
 			counter = 0;
+			extendedCounter = 0;
 			totalTime = NotifyTime;
 		}
 
 		if (counter >= totalTime){
 			WCHAR szMessage[MAX_LOADSTRING] = { 0 };
-			swprintf_s(szMessage, szBreakMessage, counter / Minutes);
+			swprintf_s(szMessage, szBreakMessage, extendedCounter / Minutes);
 			totalTime = FollowUpTime;
 			notifydData.uTimeout = 10000;
 			notifydData.uFlags = NIF_INFO;
@@ -146,7 +148,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow){
 	notifydData.uCallbackMessage = WM_TRAY_MESSAGE;
 	notifydData.hIcon = LoadIcon(hInst, MAKEINTRESOURCE(IDI_TAKEBREAK));
 	Shell_NotifyIcon(NIM_ADD, &notifydData);
-	
+
 	return TRUE;
 }
 
